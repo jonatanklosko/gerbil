@@ -1,0 +1,5 @@
+opencv-contrib-python-headless==4.1.0.25
+numpy==1.20.1
+flask==1.1.2
+imutils==0.5.4
+picamera==1.13
