@@ -47,3 +47,18 @@ FLASK_ENV=development FLASK_APP=src/dev_server.py flask run --host 0.0.0.0
 This starts a web server on port `5000` and it should be accessible
 at `http://raspberrypi.local:5000` in your local network.
 If everything is set up correctly you should see live camera feed.
+
+## Notes
+
+OpenCV is distributed with Python Wheels, so when the package
+is fetched with already pre-built native modules.
+However, in our case installing the latest versions of OpenCV failed to
+fetch the cached build and resulted in building everything from source.
+Building from source may take up to several hours on Raspberry PI,
+so that's far from a seamless experience. Fortunately pinning OpenCV
+package to an older version (namely `4.1.0.25`) did help and made the installation quick.
+
+Also there is a significant amount of system packages required
+in order to satisfy OpenCV runtime dependencies (i.e. dynamic libraries).
+We empirically gathered the necessary libraries and they are installed
+as part of the `bin/setup_python.sh` script.
