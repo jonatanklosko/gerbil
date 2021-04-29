@@ -34,10 +34,38 @@ functions_dir="functions/hid.usb0"
 mkdir -p "$functions_dir"
 echo 2 > "${functions_dir}/protocol" # Mouse
 echo 0 > "${functions_dir}/subclass" # No subclass
-echo 3 > "${functions_dir}/report_length"
+echo 5 > "${functions_dir}/report_length" # Set report length to 5 to match the device definition
+
 # Write the report descriptor
-# Source: https://eleccelerator.com/tutorial-about-usb-hid-report-descriptors/
-echo -ne "\x05\x01\x09\x02\xa1\x01\x09\x01\xa1\x00\x05\x09\x19\x01\x29\x03\x15\x00\x25\x01\x95\x03\x75\x01\x81\x02\x95\x01\x75\x05\x81\x03\x05\x01\x09\x30\x09\x31\x15\x81\x25\x7f\x75\x08\x95\x02\x81\x06\xc0\xc0" > "${functions_dir}/report_desc"
+#
+# 0x05, 0x01,       // Usage Page (Generic Desktop)
+# 0x09, 0x02,       // Usage (Mouse)
+# 0xa1, 0x01,       // Collection (Application)
+# 0x09, 0x01,       //   Usage (Pointer)
+# 0xa1, 0x00,       //   Collection (Physical)
+# 0x05, 0x09,       //     Usage Page (Buttons)
+# 0x19, 0x01,       //     Usage Minimum (Button 1)
+# 0x29, 0x03,       //     Usage Maximum (Button 3)
+# 0x15, 0x00,       //     Logical Minimum (0)
+# 0x25, 0x01,       //     Logical Maximum (1)
+# 0x95, 0x03,       //     Report Count (3)
+# 0x75, 0x01,       //     Report Size (1)
+# 0x81, 0x02,       //     Input (Data, Variable, Absolute)
+# 0x95, 0x01,       //     Report Count (1)
+# 0x75, 0x05,       //     Report Size (5)
+# 0x81, 0x03,       //     Input (Constant, Variable, Absolute)
+# 0x05, 0x01,       //     Usage Page (Generic Desktop)
+# 0x09, 0x30,       //     Usage (X)
+# 0x09, 0x31,       //     Usage (Y)
+# 0x15, 0x00,       //     Logical Minimum (0)
+# 0x26, 0xff, 0x7f, //     Logical Maximum (32767)
+# 0x75, 0x10,       //     Report Size (16)
+# 0x95, 0x02,       //     Report Count (2)
+# 0x81, 0x02,       //     Input (Data, Variable, Absolute)
+# 0xc0,             //   End Collection
+# 0xc0              // End Collection
+#
+echo -ne "\x05\x01\x09\x02\xa1\x01\x09\x01\xa1\x00\x05\x09\x19\x01\x29\x03\x15\x00\x25\x01\x95\x03\x75\x01\x81\x02\x95\x01\x75\x05\x81\x03\x05\x01\x09\x30\x09\x31\x15\x00\x26\xff\x7f\x75\x10\x95\x02\x81\x02\xc0\xc0" > "${functions_dir}/report_desc"
 
 configs_dir="configs/c.1"
 mkdir -p "$configs_dir"
