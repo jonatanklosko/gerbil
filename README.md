@@ -2,6 +2,8 @@
 
 Simulating mouse device with Raspberry Pi 4 and computer vision.
 
+https://user-images.githubusercontent.com/17034772/118178788-bb621b00-b434-11eb-99e6-d3dccc9be206.mp4
+
 ## Setup
 
 First, initialize the device and install the all necessary dependencies.
